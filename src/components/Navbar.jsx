@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, MessageCircle } from 'lucide-react';
+import { Menu, X, MessageCircle, Sun } from 'lucide-react';
 import { WHATSAPP_CHANNEL_URL, navLinks } from '../data/solarData';
 
 export default function Navbar({ activePage = 'home', onNavigate, onOpenConsultationModal }) {
@@ -13,15 +13,15 @@ export default function Navbar({ activePage = 'home', onNavigate, onOpenConsulta
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-xs transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
           
           {/* Brand Logo (Left) */}
           <button 
             onClick={() => handleNavClick('home')}
-            className="flex items-center gap-3 text-left focus:outline-none group cursor-pointer flex-shrink-0"
+            className="flex items-center gap-2 sm:gap-3 text-left focus:outline-none group cursor-pointer min-w-0 flex-shrink"
           >
-            <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center">
+            <div className="relative w-9 h-9 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center">
               <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-sm">
                 <g className="text-amber-400 fill-current">
                   <circle cx="50" cy="45" r="22" className="text-amber-400 fill-amber-400" />
@@ -35,30 +35,30 @@ export default function Navbar({ activePage = 'home', onNavigate, onOpenConsulta
               </svg>
             </div>
 
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5 leading-none">
-                <span className="text-lg sm:text-2xl font-black tracking-tight text-[#081226] font-sans">
+            <div className="flex flex-col truncate">
+              <div className="flex items-center gap-1 sm:gap-1.5 leading-none">
+                <span className="text-base sm:text-xl md:text-2xl font-black tracking-tight text-[#081226] font-sans">
                   LIFETIME
                 </span>
-                <span className="text-lg sm:text-2xl font-black tracking-tight text-[#00873e] font-sans">
+                <span className="text-base sm:text-xl md:text-2xl font-black tracking-tight text-[#00873e] font-sans">
                   LIGHT ENERGY
                 </span>
               </div>
-              <span className="text-[10px] sm:text-xs font-semibold text-slate-600 tracking-wide mt-0.5">
+              <span className="text-[9px] sm:text-xs font-semibold text-slate-600 tracking-wide mt-0.5 truncate hidden xs:block">
                 Powering A Brighter Tomorrow
               </span>
             </div>
           </button>
 
-          {/* Center Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6 mx-auto">
+          {/* Center Navigation Links (Desktop) */}
+          <nav className="hidden lg:flex items-center space-x-3 xl:space-x-6 mx-auto">
             {navLinks.map((link) => {
               const isActive = activePage === link.id;
               return (
                 <button
                   key={link.id}
                   onClick={() => handleNavClick(link.id)}
-                  className={`relative py-2 text-sm font-bold transition-colors duration-200 cursor-pointer ${
+                  className={`relative py-2 text-xs xl:text-sm font-bold transition-colors duration-200 cursor-pointer ${
                     isActive ? 'text-[#00873e]' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
@@ -71,44 +71,61 @@ export default function Navbar({ activePage = 'home', onNavigate, onOpenConsulta
             })}
           </nav>
 
-          {/* Far Right: WhatsApp Channel Button */}
-          <div className="flex items-center gap-3 ml-auto lg:ml-0 flex-shrink-0">
-            {/* Desktop & Tablet "Join WhatsApp Channel" Button */}
+          {/* Right Header Actions */}
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            
+            {/* WhatsApp Direct Action Button */}
+            {/* Desktop View: Full Pill Button */}
             <a
               href={WHATSAPP_CHANNEL_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#00873e] hover:bg-[#006e32] text-white text-xs sm:text-sm font-extrabold py-2.5 px-4 sm:px-5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 group transform hover:-translate-y-0.5"
+              className="hidden md:inline-flex items-center gap-2 bg-[#00873e] hover:bg-[#006e32] text-white text-xs sm:text-sm font-extrabold py-2 sm:py-2.5 px-3 sm:px-5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 group"
             >
               <MessageCircle className="w-4 h-4 text-white fill-white/20 group-hover:scale-110 transition-transform" />
-              <span className="hidden xs:inline sm:inline">Join WhatsApp Channel</span>
-              <span className="xs:hidden sm:hidden">WhatsApp</span>
+              <span>Join WhatsApp Channel</span>
+            </a>
+
+            {/* Mobile View (< md): Compact Green WhatsApp Icon Button */}
+            <a
+              href={WHATSAPP_CHANNEL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#00873e] text-white shadow-md active:scale-95 transition-transform"
+              aria-label="WhatsApp Channel"
+            >
+              <MessageCircle className="w-4 h-4 fill-white/20" />
             </a>
 
             {/* Mobile Hamburger Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none lg:hidden"
+              className="p-2 rounded-xl text-slate-700 hover:bg-slate-100 focus:outline-none lg:hidden border border-slate-200/60"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
 
         </div>
       </div>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3 shadow-xl">
-          <nav className="flex flex-col space-y-1.5">
+        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-4 shadow-2xl animate-in slide-in-from-top duration-200">
+          
+          <div className="text-xs font-bold text-slate-400 uppercase tracking-wider px-2">
+            Navigation Menu
+          </div>
+
+          <nav className="flex flex-col space-y-1">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className={`text-left px-3 py-2.5 rounded-xl text-base font-bold transition-colors ${
+                className={`text-left px-4 py-3 rounded-xl text-sm sm:text-base font-bold transition-all ${
                   activePage === link.id 
-                    ? 'bg-emerald-50 text-[#00873e] border-l-4 border-[#00873e]' 
+                    ? 'bg-emerald-50 text-[#00873e] border-l-4 border-[#00873e] shadow-xs' 
                     : 'text-slate-700 hover:bg-slate-50'
                 }`}
               >
@@ -117,12 +134,12 @@ export default function Navbar({ activePage = 'home', onNavigate, onOpenConsulta
             ))}
           </nav>
           
-          <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+          <div className="pt-3 border-t border-slate-100 flex flex-col gap-2.5">
             <a
               href={WHATSAPP_CHANNEL_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center gap-2 bg-[#00873e] text-white font-bold py-3 px-4 rounded-xl shadow-sm text-sm"
+              className="w-full inline-flex items-center justify-center gap-2 bg-[#00873e] hover:bg-[#006e32] text-white font-extrabold py-3 px-4 rounded-xl shadow-md text-sm transition-colors"
             >
               <MessageCircle className="w-4 h-4 fill-white/20" />
               <span>Join WhatsApp Channel</span>
@@ -133,11 +150,12 @@ export default function Navbar({ activePage = 'home', onNavigate, onOpenConsulta
                 setMobileMenuOpen(false);
                 onOpenConsultationModal();
               }}
-              className="w-full bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold py-3 px-4 rounded-xl text-sm"
+              className="w-full bg-amber-400 hover:bg-amber-500 text-slate-950 font-black py-3 px-4 rounded-xl shadow-md text-sm transition-colors cursor-pointer"
             >
               Get Free Consultation
             </button>
           </div>
+
         </div>
       )}
     </header>
