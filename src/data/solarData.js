@@ -1,4 +1,4 @@
-export const WHATSAPP_CHANNEL_URL = "https://whatsapp.com/channel/0029VbDLZmx0IwgqkWOaAU0i";
+export const WHATSAPP_CHANNEL_URL = "https://whatsapp.com/channel/0029VbDLZmx0lwgqkwOAaU0i";
 
 export const companyDetails = {
   name: "LIFETIME LIGHT ENERGY",
